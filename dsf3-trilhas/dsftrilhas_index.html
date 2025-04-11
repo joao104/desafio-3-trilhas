@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscrição - Programa de Formação</title>
+  <link rel="stylesheet" href="dsftrilhas_index.css">
+</head>
+<body>
+  <div class="logo-container">
+    <img src="imagens/logotrilhas.png" alt="Logo Trilhas" class="logo-imagem" width="300px" height="250px">
+  </div>
+
+  <div class="container">
+    <h1>Formulário de Inscrição Para o Programa Trilhas</h1>
+    <form id="formularioInscricao">
+      <fieldset>
+        <legend>Dados Pessoais</legend>
+        <input type="text" id="nome" name="nome" placeholder="Nome completo" required>
+        <input type="date" id="nascimento" name="nascimento" required>
+        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+        <input type="text" id="rg" name="rg" placeholder="RG (opcional)">
+        <select id="genero" name="genero">
+          <option value="masculino">Masculino</option>
+          <option value="feminino">Feminino</option>
+          <option value="nao_informar">Prefiro não informar</option>
+        </select>
+        <input type="text" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+        <input type="email" id="email" name="email" placeholder="email@exemplo.com" required>
+      </fieldset>
+
+      <fieldset>
+        <legend>Endereço</legend>
+        <input type="text" id="estado" name="estado" placeholder="Estado" required>
+        <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
+        <input type="text" id="cep" name="cep" placeholder="00000-000" required>
+        <input type="text" id="logradouro" name="logradouro" placeholder="Rua / Avenida" required>
+        <input type="text" id="numero" name="numero" placeholder="Número" required>
+        <input type="text" id="complemento" name="complemento" placeholder="Complemento (opcional)">
+      </fieldset>
+
+      <fieldset>
+        <legend>Formação Acadêmica</legend>
+        <select id="escolaridade" name="escolaridade" required>
+          <option value="">Selecione sua escolaridade</option>
+          <option>Ensino Fundamental</option>
+          <option>Ensino Médio</option>
+          <option>Ensino Técnico</option>
+          <option>Ensino Superior</option>
+          <option>Pós-graduação</option>
+        </select>
+        <input type="text" id="area_interesse" name="area_interesse" placeholder="Área de interesse em tecnologia" required>
+      </fieldset>
+
+      <fieldset>
+        <legend>Teste de Nivelamento</legend>
+        <label>Você tem experiência prévia com tecnologia?</label>
+        <input type="radio" name="experiencia" value="sim" required> Sim
+        <input type="radio" name="experiencia" value="nao"> Não
+
+        <textarea id="descricao_experiencia" name="descricao_experiencia" placeholder="Descreva sua experiência (se houver)"></textarea>
+
+        <label>Conhecimentos prévios:</label><br>
+        <input type="checkbox" name="conhecimentos[]" value="html"> HTML/CSS
+        <input type="checkbox" name="conhecimentos[]" value="javascript"> JavaScript
+        <input type="checkbox" name="conhecimentos[]" value="banco"> Banco de Dados
+        <input type="checkbox" name="conhecimentos[]" value="redes"> Redes de Computadores
+        <input type="checkbox" name="conhecimentos[]" value="seguranca"> Segurança da Informação
+        <input type="checkbox" name="conhecimentos[]" value="outros"> Outros
+      </fieldset>
+
+      <fieldset>
+        <legend>Teste Técnico</legend>
+        <label for="disponibilidade">Disponibilidade para a prova técnica:</label>
+        <input type="datetime-local" id="disponibilidade" name="disponibilidade" required>
+        <input type="checkbox" id="termos" name="termos" required>
+        <label for="termos">Concordo com os termos e regulamento do processo seletivo</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Documentos</legend>
+        <label for="documento">Envie seus documentos (imagem ou PDF):</label>
+        <input type="file" id="documento" name="documento[]" multiple accept="image/*,application/pdf" required>
+      </fieldset>
+
+      <button type="submit">Enviar Inscrição</button>
+      <button type="reset">Limpar Campos</button>
+    </form>
+  </div>
+
+  <!-- Script para salvar no localStorage -->
+  <script>
+    document.getElementById("formularioInscricao").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+      const dados = {};
+
+      for (let [key, value] of formData.entries()) {
+        // Para lidar com checkboxes com o mesmo nome
+        if (dados[key]) {
+          if (Array.isArray(dados[key])) {
+            dados[key].push(value);
+          } else {
+            dados[key] = [dados[key], value];
+          }
+        } else {
+          dados[key] = value;
+        }
+      }
+
+      localStorage.setItem("dadosFormulario", JSON.stringify(dados));
+      alert("🎉 Inscrição salva com sucesso no armazenamento local!");
+      form.reset();
+    });
+  </script>
+</body>
+</html>

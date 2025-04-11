@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body { font-family: Arial; padding: 20px; max-width: 400px; margin: auto; }
+    input { margin-bottom: 10px; width: 100%; padding: 8px; }
+    button { padding: 10px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h2>Entrar no Sistema</h2>
+  <form id="loginForm">
+    <label for="usuario">ID do Usuário:</label>
+    <input type="text" id="usuario" required placeholder="Digite seu ID">
+
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" required placeholder="Digite sua senha">
+
+    <button type="submit">Entrar</button>
+  </form>
+
+  <script>
+    const ID_FIXO = "admin";
+    const SENHA_FIXA = "123456";
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const usuario = document.getElementById("usuario").value;
+      const senha = document.getElementById("senha").value;
+
+      if (usuario === ID_FIXO && senha === SENHA_FIXA) {
+        alert("Login autorizado!");
+        window.location.href = "dsftrilhas_index.html";
+      } else {
+        alert("ID ou senha incorretos.");
+      }
+    });
+  </script>
+</body>
+</html>
